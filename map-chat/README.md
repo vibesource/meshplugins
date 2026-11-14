@@ -24,14 +24,14 @@ maintainer.
 ## Installation
 
 From the repository root, run `./build.sh map-chat`, then upload the resulting
-`dist/map-chat-0.1.8.meshplugin` using **Config → Plugins**. The plugin's
+`dist/map-chat-0.1.9.meshplugin` using **Config → Plugins**. The plugin's
 manifest must be at the archive root. For mobile, open the map layers drawer
 (the map button) and scroll to Map Chat.
 
 ## Data and limitations
 
-MeshPulse stores message history; pins, unread counts, drafts and selected
-conversation are stored per browser. Unread counts are not synchronized across
+MeshPulse stores message history; pins, unread counts, drafts, selected
+conversation and desktop panel size are stored per browser. Unread counts are not synchronized across
 devices. A Submitted state indicates the local send call completed; delivery
 states depend on the corresponding radio acknowledgment. A timeout does not
 prove non-delivery. The plugin requires access to the MeshPulse WebSocket, and

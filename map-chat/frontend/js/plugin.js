@@ -24,6 +24,7 @@
       this.emojiButton.addEventListener('click', () => this.toggleEmojiPicker()); this.emojiPicker.addEventListener('keydown', e => { if (e.key === 'Escape') { this.toggleEmojiPicker(false); this.emojiButton.focus(); } }); this.emojiWrap.append(this.emojiButton, this.emojiPicker);
       this.send = el('button', 'mc-send', 'Send'); this.send.type = 'submit'; this.form.append(this.emojiWrap, this.input, this.send); this.main.append(this.header, this.feed, this.form);
       this.layout.append(this.sidebar, this.main); this.body.append(this.layout); api.panels.register(this.panel);
+      this.restorePanelSize();
       this.search.addEventListener('input', () => this.renderSearch()); this.input.addEventListener('input', () => { this.saved.drafts[this.active] = this.input.value; this.save(); });
       this.input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); this.form.requestSubmit(); } });
       this.form.addEventListener('submit', e => { e.preventDefault(); this.sendMessage(); });
@@ -34,6 +35,23 @@
         if (Object.values(this.messages).some(items => items.some(m => m.from_id === node.id)) || this.active === `dm:${node.id}`) this.render();
       });
       this.connect(); this.render();
+    }
+    restorePanelSize() {
+      const size = this.saved.panelSize;
+      if (size && Number.isFinite(size.width) && Number.isFinite(size.height) && size.width >= 320 && size.height >= 265 && size.width <= 10000 && size.height <= 10000) {
+        this.panel.style.width = `${size.width}px`; this.panel.style.height = `${size.height}px`;
+      }
+      if (typeof ResizeObserver === 'undefined') return;
+      this.sizeObserver = new ResizeObserver(() => {
+        if (this.dead || window.matchMedia('(max-width: 768px)').matches || this.panel.classList.contains('panel-collapsed')) return;
+        // The browser's native resize handle writes pixel sizes to inline styles.
+        // Use those requested sizes rather than viewport-clamped measurements.
+        const width = Number.parseFloat(this.panel.style.width), height = Number.parseFloat(this.panel.style.height);
+        if (!Number.isFinite(width) || !Number.isFinite(height) || width < 320 || height < 265 || width > 10000 || height > 10000) return;
+        if (this.saved.panelSize && this.saved.panelSize.width === width && this.saved.panelSize.height === height) return;
+        this.saved.panelSize = {width, height}; this.save();
+      });
+      this.sizeObserver.observe(this.panel);
     }
     toggleEmojiPicker(open = this.emojiPicker.hidden) { this.emojiPicker.hidden = !open; this.emojiButton.setAttribute('aria-expanded', String(open)); }
     insertEmoji(emoji) { const input = this.input; const start = input.selectionStart, end = input.selectionEnd; input.setRangeText(emoji, start, end, 'end'); this.saved.drafts[this.active] = input.value; this.save(); this.toggleEmojiPicker(false); input.focus(); }
@@ -110,7 +128,7 @@
       this.sentId = `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
       this.add({from_id:this.tracker, to_id:isDM ? this.active.slice(3) : '^all', text, channel_index:channel, is_dm:isDM, timestamp:Math.floor(Date.now()/1000), message_id:this.sentId, delivery_status:'sending', delivery_revision:0}, false);
       this.api.messages.sendTracked(text, isDM ? this.active.slice(3) : null, channel, this.sentId).then(result => this.sendResult(result), error => this.sendResult({success:false, message:error.message})); this.render(); }
-    onDisable() { this.dead = true; clearTimeout(this.timer); if (this.unsubscribe) this.unsubscribe(); this.api.panels.unregister(this.panel); }
+    onDisable() { this.dead = true; clearTimeout(this.timer); if (this.sizeObserver) this.sizeObserver.disconnect(); if (this.unsubscribe) this.unsubscribe(); this.api.panels.unregister(this.panel); }
   }
   window.MeshPlugin = MapChat;
 })();

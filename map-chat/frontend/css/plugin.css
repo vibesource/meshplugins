@@ -28,7 +28,7 @@
 .map-chat .mc-meta { color: #adbed1; font-size: 10px; margin-bottom: 4px; }.map-chat .mc-text { white-space: pre-wrap; }
 .map-chat .mc-reply { padding: 5px 0 0; color: #92caff; font-size: 11px; }.map-chat .mc-empty { color: #aebed0; padding: 16px; }
 .map-chat .mc-form { display: flex; gap: 6px; padding: 7px; border-top: 1px solid #344154; }.map-chat .mc-input { flex: 1; min-width: 0; resize: vertical; }.map-chat .mc-send { border: 0; border-radius: 5px; padding: 8px; background: #3176bb; color: white; }.map-chat .mc-send:disabled { opacity: .5; }
-@media (max-width: 768px) { .map-chat { width: 100%; height: 55vh; min-width: 0; max-width: 100%; resize: none; } }
+@media (max-width: 768px) { .map-chat { width: 100% !important; height: 55vh !important; min-width: 0; max-width: 100%; resize: none; } }
 .map-chat .mc-delivery-submitted, .map-chat .mc-delivery-sending { color: #b9c8d8; }
 .map-chat .mc-delivery-delivered_mesh, .map-chat .mc-delivery-delivered_recipient { color: #8cdea8; }
 .map-chat .mc-delivery-relayed, .map-chat .mc-delivery-unconfirmed, .map-chat .mc-delivery-unknown { color: #f2c879; }

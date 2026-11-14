@@ -5,3 +5,5 @@
 .filter{display:flex;align-items:center;gap:8px;margin:14px 0;color:#cbd5e1}.filter input{width:18px;height:18px;accent-color:#62cda0}
 
 .chart .plot-point{cursor:pointer;stroke:transparent;stroke-width:14;paint-order:stroke fill}.chart .plot-point:hover,.chart .plot-point:focus{stroke:#a5d7ff;stroke-width:5;outline:none}.point-detail{min-height:2.5em;margin:6px 0 0;color:#cbd5e1;font-size:.85rem}
+
+.chart .series-voltage{stroke:#f3d45b}.chart .point-voltage{fill:#f3d45b}.chart .low-warning{stroke:#f59e0b;stroke-width:1;stroke-dasharray:3 3}.chart .warning-label{fill:#fbbf24}.chart-legend{font-size:.8rem;color:#b7c5d7;margin:0}

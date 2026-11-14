@@ -51,3 +51,17 @@
   .map-chat .mc-emoji-button { padding: 6px; }
   .map-chat .mc-send { padding: 8px; }
 }
+.map-chat .mc-body { position: relative; }
+.map-chat .mc-node-link { color: #b9dfff; font: inherit; background: transparent; border: 0; padding: 0; text-align: left; text-decoration: underline; text-decoration-color: #6485a6; text-underline-offset: 2px; }
+.map-chat .mc-heading-link { font-weight: inherit; }
+.map-chat .mc-node-details { position: absolute; z-index: 5; inset: 0; overflow: auto; padding: 12px; background: #192332; color: #e5e7eb; }
+.map-chat .mc-node-details[hidden] { display: none; }
+.map-chat .mc-node-top { display: flex; align-items: center; gap: 8px; justify-content: space-between; }
+.map-chat .mc-node-title { overflow-wrap: anywhere; font-size: 16px; }
+.map-chat .mc-node-close { flex: none; border: 0; background: transparent; color: #d6e4f7; padding: 6px 9px; font-size: 18px; }
+.map-chat .mc-node-list { display: grid; grid-template-columns: minmax(100px, auto) 1fr; gap: 6px 12px; font-size: 13px; }
+.map-chat .mc-node-list dt { color: #aebed0; }.map-chat .mc-node-list dd { margin: 0; overflow-wrap: anywhere; }
+.map-chat .mc-node-note, .map-chat .mc-node-empty { color: #aebed0; font-size: 12px; }
+.map-chat .mc-node-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.map-chat .mc-node-action { border: 1px solid #55708f; border-radius: 5px; padding: 8px; background: #263e59; color: white; }
+.map-chat .mc-node-action:disabled { opacity: .5; cursor: not-allowed; }

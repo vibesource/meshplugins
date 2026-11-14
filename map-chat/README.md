@@ -2,7 +2,7 @@
 
 Map Chat is an independent frontend plugin for [MeshPulse](https://github.com/maxg10/meshpulse),
 created by Max Gieparda. It places channel and direct conversations on the map,
-with pinned conversations, unread counts, drafts, an emoji picker and per-message delivery states.
+with pinned conversations, unread counts, drafts, an emoji picker, node details and per-message delivery states.
 
 ![Map Chat panel on the MeshPulse map](docs/map-chat.png)
 
@@ -24,7 +24,7 @@ maintainer.
 ## Installation
 
 From the repository root, run `./build.sh map-chat`, then upload the resulting
-`dist/map-chat-0.1.9.meshplugin` using **Config → Plugins**. The plugin's
+`dist/map-chat-0.1.10.meshplugin` using **Config → Plugins**. The plugin's
 manifest must be at the archive root. For mobile, open the map layers drawer
 (the map button) and scroll to Map Chat.
 
@@ -41,3 +41,7 @@ Map Chat has been tested with the integration branch over TCP and in an
 isolated USB trial. Authentication has been tested with the live site locked and
 unlocked. Hardware, connectivity and delivery outcomes vary; this is still an
 early release.
+
+Node details show the latest information available in MeshPulse, not signal
+measurements for an individual message. Traceroute uses the map’s existing
+internal action and is unavailable if that action is missing.

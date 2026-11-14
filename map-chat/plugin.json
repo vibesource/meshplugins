@@ -1,0 +1,26 @@
+{
+  "id": "local/map-chat",
+  "name": "Map Chat",
+  "version": "0.1.6",
+  "description": "Channel and direct conversations on the map",
+  "author": {
+    "name": "VibeSource"
+  },
+  "license": "GPL-3.0",
+  "compatibility": {
+    "min_mapper_version": "2.9.6",
+    "tested_up_to": "2.9.6"
+  },
+  "permissions": [],
+  "backend": null,
+  "frontend": {
+    "pages": [],
+    "js": "frontend/js/plugin.js",
+    "css": "frontend/css/plugin.css"
+  },
+  "hooks": [],
+  "api_routes": [],
+  "websocket_channels": [],
+  "dependencies": [],
+  "config": {}
+}

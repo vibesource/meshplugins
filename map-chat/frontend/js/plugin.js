@@ -18,7 +18,11 @@
       this.main = el('div', 'mc-main'); this.heading = el('div', 'mc-heading'); this.feed = el('div', 'mc-feed'); this.feed.setAttribute('aria-live', 'polite');
       this.form = el('form', 'mc-form'); this.input = el('textarea', 'mc-input'); this.input.rows = 2; this.input.placeholder = 'Write a message…'; this.input.setAttribute('aria-label', 'Message');
       this.input.value = this.saved.drafts[this.active] || '';
-      this.send = el('button', 'mc-send', 'Send'); this.send.type = 'submit'; this.form.append(this.input, this.send); this.main.append(this.heading, this.feed, this.form);
+      this.emojiWrap = el('div', 'mc-emoji-wrap'); this.emojiButton = el('button', 'mc-emoji-button', '😊'); this.emojiButton.type = 'button'; this.emojiButton.title = 'Insert emoji'; this.emojiButton.setAttribute('aria-label', 'Insert emoji'); this.emojiButton.setAttribute('aria-expanded', 'false');
+      this.emojiPicker = el('div', 'mc-emoji-picker'); this.emojiPicker.hidden = true; this.emojiPicker.setAttribute('aria-label', 'Choose an emoji');
+      [['😀','grinning face'],['😊','smiling face'],['😂','laughing'],['👍','thumbs up'],['👋','wave'],['❤️','heart'],['🎉','celebration'],['🙏','thanks'],['✅','check mark'],['☀️','sun']].forEach(([emoji, name]) => { const button = el('button', 'mc-emoji-choice', emoji); button.type = 'button'; button.title = name; button.setAttribute('aria-label', name); button.addEventListener('click', () => this.insertEmoji(emoji)); this.emojiPicker.append(button); });
+      this.emojiButton.addEventListener('click', () => this.toggleEmojiPicker()); this.emojiPicker.addEventListener('keydown', e => { if (e.key === 'Escape') { this.toggleEmojiPicker(false); this.emojiButton.focus(); } }); this.emojiWrap.append(this.emojiButton, this.emojiPicker);
+      this.send = el('button', 'mc-send', 'Send'); this.send.type = 'submit'; this.form.append(this.emojiWrap, this.input, this.send); this.main.append(this.heading, this.feed, this.form);
       this.layout.append(this.sidebar, this.main); this.body.append(this.layout); api.panels.register(this.panel);
       this.search.addEventListener('input', () => this.renderSearch()); this.input.addEventListener('input', () => { this.saved.drafts[this.active] = this.input.value; this.save(); });
       this.input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey && !e.isComposing) { e.preventDefault(); this.form.requestSubmit(); } });
@@ -31,6 +35,8 @@
       });
       this.connect(); this.render();
     }
+    toggleEmojiPicker(open = this.emojiPicker.hidden) { this.emojiPicker.hidden = !open; this.emojiButton.setAttribute('aria-expanded', String(open)); }
+    insertEmoji(emoji) { const input = this.input; const start = input.selectionStart, end = input.selectionEnd; input.setRangeText(emoji, start, end, 'end'); this.saved.drafts[this.active] = input.value; this.save(); this.toggleEmojiPicker(false); input.focus(); }
     save() { try { localStorage.setItem(STORE, JSON.stringify(this.saved)); } catch (_) {} }
     connect() {
       if (this.dead) return;
@@ -85,7 +91,7 @@
     last(k) { const a = this.messages[k] || []; return a.length ? a[a.length-1].timestamp || 0 : 0; }
     senderName(m, nodes) { const id = m.from_id; const node = nodes.find(n => n.id === id); return (node && [node.name, node.short_name].find(name => name && name !== id)) || m.from_name || id || 'Unknown'; }
     label(k) { if (k.startsWith('ch:')) { const n = k.slice(3); return this.names[n] || (n === '0' ? 'Primary' : `Channel ${n}`); } const id = k.slice(3); const node = [...this.api.nodes.getAll(), ...this.api.nodes.getNoPosition()].find(n => n.id === id); const m = (this.messages[k] || []).find(x => x.from_id === id); return (node && (node.name || node.id)) || (m && m.from_name) || id; }
-    select(k) { const changed = this.active !== k; this.active = k; this.saved.active = k; this.saved.unread[k] = 0; this.input.value = this.saved.drafts[k] || ''; this.save(); this.render(); if (changed && this.feed) this.feed.scrollTop = this.feed.scrollHeight; }
+    select(k) { if (this.emojiPicker) this.toggleEmojiPicker(false); const changed = this.active !== k; this.active = k; this.saved.active = k; this.saved.unread[k] = 0; this.input.value = this.saved.drafts[k] || ''; this.save(); this.render(); if (changed && this.feed) this.feed.scrollTop = this.feed.scrollHeight; }
     renderSearch() { this.results.replaceChildren(); const q = this.search.value.trim().toLowerCase(); if (!q) return; const nodes = [...this.api.nodes.getAll(), ...this.api.nodes.getNoPosition()].filter(n => n.id && n.id !== this.tracker && `${n.name || ''} ${n.id}`.toLowerCase().includes(q)).slice(0,8); nodes.forEach(n => { const b = el('button','mc-result', `${n.name || n.id} · ${n.id}`); b.type = 'button'; b.onclick = () => { this.search.value = ''; this.renderSearch(); this.select(`dm:${n.id}`); }; this.results.append(b); }); }
     render() {
       if (!this.list) return; this.list.replaceChildren(); const keys = this.keys(); let total = 0;

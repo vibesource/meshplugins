@@ -61,11 +61,16 @@ telemetry values, and their compatibility remains to be tested.
 ## Build and test
 
 Run `./build.sh device-metrics` from the repository root and install
-`dist/device-metrics-0.1.0.meshplugin` via MeshPulse Config → Plugins. The
+`dist/device-metrics-0.1.1.meshplugin` via MeshPulse Config → Plugins. The
 plugin creates `data.db` in its plugin directory; back up the plugin volume.
 Samples are retained for one year, cleaned on incoming telemetry. The chart
 retrieves up to 5,000 samples for the selected range and the list shows the
 most recent 500. A notice is displayed if the chart result is truncated.
+
+The optional node filter shows only nodes with samples recorded by this plugin,
+including samples outside the selected time range. The filter and last selection
+are saved per browser. A manual telemetry request is a possible future feature;
+the current plugin does not send requests to nodes.
 
 The expected interval selector is stored per browser; a gap longer than twice
 that interval is shown dotted. The latest card shows the most recent stored

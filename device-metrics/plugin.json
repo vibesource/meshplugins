@@ -1,7 +1,7 @@
 {
   "id": "vibesource/device-metrics",
   "name": "Device Metrics",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Device telemetry history and trends",
   "author": {"name": "VibeSource"},
   "license": "GPL-3.0",

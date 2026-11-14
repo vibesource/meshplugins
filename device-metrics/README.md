@@ -14,7 +14,7 @@ Stock MeshPulse 2.9.6 can discard telemetry packets when the Meshtastic Python l
 
 ## Build and install
 
-Run `./build.sh device-metrics` from the repository root and install `dist/device-metrics-0.1.3.meshplugin` via MeshPulse **Config → Plugins**. The plugin creates `data.db` in its plugin directory; back up the plugin volume. Samples are retained for one year, cleaned on incoming telemetry. The chart retrieves up to 5,000 samples for the selected range and the list shows the most recent 500. A notice appears if the chart result is truncated.
+Run `./build.sh device-metrics` from the repository root and install `dist/device-metrics-0.1.4.meshplugin` via MeshPulse **Config → Plugins**. The plugin creates `data.db` in its plugin directory; back up the plugin volume. Samples are retained for one year, cleaned on incoming telemetry. The chart retrieves up to 5,000 samples for the selected range and the list shows the most recent 500. A notice appears if the chart result is truncated.
 
 On HTTPS the page uses `/meshpulse-ws` on the same origin; the reverse proxy must route that path to MeshPulse's WebSocket. On ordinary HTTP it uses the host's port 8765. Telemetry history is exposed through a read-only plugin WebSocket channel; MeshPulse's generic plugin channels are not protected by its `send_message` admin check, so network access controls matter.
 

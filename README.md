@@ -7,7 +7,7 @@ maintained separately and are not official MeshPulse plugins.
 | Plugin | Description | Compatibility |
 | --- | --- | --- |
 | [Map Chat](map-chat/README.md) | Channel and direct-message conversations on the map | Requires the [Map Chat integration branch](https://github.com/vibesource/meshpulse/tree/integration/map-chat-api) of our MeshPulse fork; not compatible with unmodified upstream 2.9.6 |
-| [Device Metrics](device-metrics/README.md) | Device telemetry history and trends | Early test version; upstream compatibility under test |
+| [Device Metrics](device-metrics/README.md) | Device telemetry history and trends | Uses the upstream 2.9.6 plugin API; see README for telemetry reception limitations |
 
 ## Build and install
 

@@ -11,6 +11,7 @@ build_plugin() {
   archive="$(pwd)/dist/$name-$version.meshplugin"
   rm -f "$archive"
   ( cd "$name"; files=(plugin.json); [[ ! -d frontend ]] || files+=(frontend); [[ ! -d backend ]] || files+=(backend); zip -q -X -r "$archive" "${files[@]}" -x '*/__pycache__/*' '*.pyc' )
+  zip -q -X "$archive" LICENSE
   echo "$archive"
 }
 if (( $# )); then for plugin in "$@"; do build_plugin "$plugin"; done

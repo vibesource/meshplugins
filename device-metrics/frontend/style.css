@@ -3,3 +3,5 @@
 .latest > .muted{grid-column:1/-1}.chart[data-metric="voltage"]{--series:#f3d45b}.chart[data-metric="channel_util"]{--series:#d48bec}.chart[data-metric="air_util_tx"]{--series:#6ed7e3}@media(max-width:600px){.latest{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .filter{display:flex;align-items:center;gap:8px;margin:14px 0;color:#cbd5e1}.filter input{width:18px;height:18px;accent-color:#62cda0}
+
+.chart .plot-point{cursor:pointer;stroke:transparent;stroke-width:14;paint-order:stroke fill}.chart .plot-point:hover,.chart .plot-point:focus{stroke:#a5d7ff;stroke-width:5;outline:none}.point-detail{min-height:2.5em;margin:6px 0 0;color:#cbd5e1;font-size:.85rem}

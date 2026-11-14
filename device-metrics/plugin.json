@@ -1,0 +1,16 @@
+{
+  "id": "vibesource/device-metrics",
+  "name": "Device Metrics",
+  "version": "0.1.0",
+  "description": "Device telemetry history and trends",
+  "author": {"name": "VibeSource"},
+  "license": "GPL-3.0",
+  "compatibility": {"min_mapper_version": "2.9.6", "tested_up_to": "2.9.6"},
+  "permissions": ["database"],
+  "backend": {"entry_point": "backend/main.py"},
+  "frontend": {"js": null, "css": null, "pages": [{"id": "metrics", "title": "Device Metrics", "icon": "📈", "path": "frontend/index.html"}]},
+  "hooks": ["on_telemetry"],
+  "websocket_channels": ["metrics"],
+  "dependencies": [],
+  "config": {}
+}

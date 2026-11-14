@@ -1,6 +1,6 @@
 # Device Metrics
 
-**Planning stage — not yet an installable plugin.**
+**Early test version.** It collects new telemetry after installation; it does not import historical phone data.
 
 A proposed independent [MeshPulse](https://github.com/maxg10/meshpulse) plugin
 for reviewing device telemetry, especially solar-powered nodes. The initial view
@@ -57,3 +57,24 @@ host's WebSocket proxy and is separate from plugin compatibility.
 This concerns the MeshPulse application, not a requirement for a custom
 Meshtastic radio firmware. Device firmware and hardware must provide the
 telemetry values, and their compatibility remains to be tested.
+
+## Build and test
+
+Run `./build.sh device-metrics` from the repository root and install
+`dist/device-metrics-0.1.0.meshplugin` via MeshPulse Config → Plugins. The
+plugin creates `data.db` in its plugin directory; back up the plugin volume.
+Samples are retained for one year, cleaned on incoming telemetry. The chart
+retrieves up to 5,000 samples for the selected range and the list shows the
+most recent 500. A notice is displayed if the chart result is truncated.
+
+The expected interval selector is stored per browser; a gap longer than twice
+that interval is shown dotted. The latest card shows the most recent stored
+sample even when it falls outside the chosen graph range. On HTTPS the page
+uses `/meshpulse-ws` on the same origin; the reverse proxy must route that path
+to MeshPulse's WebSocket. On ordinary HTTP it uses the host's port 8765.
+Telemetry history is exposed through a read-only plugin WebSocket channel;
+MeshPulse's generic plugin channels are not protected by its `send_message`
+admin check, so network access controls matter.
+
+Automated checks: `python3 -B -m unittest discover -s device-metrics/tests -p
+"test_*.py"` and `node device-metrics/tests/browser.cjs` (Playwright required).

@@ -4,7 +4,7 @@ const vm = require('node:vm');
 const ctx = {window:{}, document:{hidden:false}, localStorage:{setItem(){}}, console};
 vm.runInNewContext(fs.readFileSync('map-chat/frontend/js/plugin.js','utf8'),ctx);
 const chat = new ctx.window.MeshPlugin();
-chat.tracker = '!self'; chat.messages = {}; chat.deliveryUpdates = {}; chat.names = {0:'LongFast',1:'TAK'}; chat.active = 'ch:0'; chat.saved = {pins:[],unread:{},drafts:{}}; chat.panel = {classList:{contains:()=>false}};
+chat.tracker = '!self'; chat.messages = {}; chat.deliveryUpdates = {}; chat.names = {0:'LongFast',1:'TAK'}; chat.active = 'ch:0'; chat.saved = {pins:[],unread:{},drafts:{}}; chat.panel = {classList:{contains:()=>false,add:()=>{},remove:()=>{}}};
 chat.add({from_id:'!alice',to_id:'^all',channel_index:0,is_dm:false,text:'public',timestamp:1},true);
 chat.add({from_id:'!alice',to_id:'!self',channel_index:0,is_dm:true,text:'private',timestamp:2},true);
 chat.add({from_id:'!self',to_id:'!alice',channel_index:0,is_dm:true,text:'answer',timestamp:3},true);

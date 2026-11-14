@@ -39,3 +39,15 @@
 .map-chat .mc-emoji-picker[hidden] { display: none; }
 .map-chat .mc-emoji-choice { border: 0; border-radius: 4px; background: transparent; font-size: 20px; padding: 4px; }
 .map-chat .mc-emoji-choice:hover, .map-chat .mc-emoji-choice:focus-visible { background: #3a4b60; }
+.map-chat .mc-header { display: flex; align-items: center; border-bottom: 1px solid #344154; }
+.map-chat .mc-heading { flex: 1; min-width: 0; border-bottom: 0; overflow-wrap: anywhere; }
+.map-chat .mc-back { display: none; }
+@media (max-width: 768px) {
+  .map-chat .mc-sidebar { width: 100%; min-width: 0; border-right: 0; }
+  .map-chat .mc-main { display: none; }
+  .map-chat.mc-chat-open .mc-sidebar { display: none; }
+  .map-chat.mc-chat-open .mc-main { display: flex; }
+  .map-chat .mc-back { display: inline-block; flex: none; color: #b9dfff; background: transparent; border: 0; padding: 10px; }
+  .map-chat .mc-emoji-button { padding: 6px; }
+  .map-chat .mc-send { padding: 8px; }
+}

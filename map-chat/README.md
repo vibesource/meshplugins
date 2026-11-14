@@ -4,6 +4,10 @@ Map Chat is an independent frontend plugin for [MeshPulse](https://github.com/ma
 created by Max Gieparda. It places channel and direct conversations on the map,
 with pinned conversations, unread counts, drafts and per-message delivery states.
 
+![Map Chat panel on the MeshPulse map](docs/map-chat.png)
+
+*The screenshot uses fictional messages and names; the map is obscured.*
+
 ## Compatibility
 
 **This version requires our [MeshPulse integration branch](https://github.com/vibesource/meshpulse/tree/integration/map-chat-api),

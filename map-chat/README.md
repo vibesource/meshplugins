@@ -24,7 +24,7 @@ maintainer.
 ## Installation
 
 From the repository root, run `./build.sh map-chat`, then upload the resulting
-`dist/map-chat-0.1.10.meshplugin` using **Config → Plugins**. The plugin's
+`dist/map-chat-0.1.11.meshplugin` using **Config → Plugins**. The plugin's
 manifest must be at the archive root. For mobile, open the map layers drawer
 (the map button) and scroll to Map Chat.
 
